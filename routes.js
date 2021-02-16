@@ -1,0 +1,110 @@
+const { Router } = require('express');
+const { Message, Comment } = require('./db');
+const router = Router();
+
+
+
+
+router.get('/', async (req, res) => {
+  res.render('index');
+  const message = await message.findAll();
+
+
+
+  let mensaje = req.flash('message') ;
+    console.log(message);
+
+  res.render('index.ejs', {message: message, comment: comment})
+});
+
+/*// para mostrar las ciudades
+router.get('/cities', async (req, res) => {
+  const countries = await Country.findAll();
+
+  const cities = await City.findAll({
+    include: [Country]
+  });
+  console.log(cities);
+
+  res.render('cities.ejs', {countries: countries, cities: cities})
+});
+
+// para crear nuevas ciudades
+router.post('/cities', async (req, res) => {
+  console.log(`Creando la ciudad ${req.body.name} para el pais ${req.body.countryId}`);
+  const city = await City.create({
+    name: req.body.name,
+    CountryId: req.body.countryId
+  });
+  res.redirect('/cities');
+});
+
+// para agregar paises
+router.post('/', async (req, res) => {
+  // usamos modelos para agregar paises
+
+  try {
+    const new_country = await Country.create({
+      name: req.body.name,
+      continent: req.body.continent
+    });
+    req.flash('mensaje', `El pais ${new_country.name} fue creado en base datos.`);
+
+  } catch (errors) {
+    for (var key in errors.errors) {
+      req.flash('mensaje', errors.errors[key].message);
+    }
+  }
+
+  console.log("***********  DESDE EL / POST" + req.session.nombreUsuario);
+
+
+  res.redirect("/");
+});
+
+router.get('/eliminar/:id' , async (req,res) => {
+
+  const pais = await Country.findByPk(req.params.id);
+  await pais.destroy();
+  
+  //req.flash('mensaje', `El pais ${pais.name} fue eliminado.`);
+
+  console.log("***********  DESDE EL /eliminar/:id" + req.session.nombreUsuario);
+
+  res.json({ estado: true,  mensaje: `El pais ${pais.name} fue eliminado.`});
+});
+
+router.post('/actualizar/:id' , async (req,res) => {
+
+  console.log("Llego ID:" +  req.params.id);
+  console.log("Del formulario EDITAR llego este name: " + req.body.name);
+  console.log("Del formulario EDITAR llego este continent: " + req.body.continent);
+
+  const pais = await Country.findByPk(req.params.id);
+  pais.name = req.body.name;
+  pais.continent = req.body.continent;
+  await pais.save();
+
+  req.flash('mensaje', `El pais ${pais.name} fue actualizado.`);
+
+  console.log("***********  DESDE EL /actualizar/:id post: " + req.session.nombreUsuario);
+
+  res.redirect("/");
+
+});
+
+// para mostrar los paises
+router.get('/editar/:id', async (req, res) => {
+  
+  console.log("Llego ID:" +  req.params.id);
+  const pais = await Country.findByPk(req.params.id);  
+  
+  let mensaje = req.flash('mensaje') ;
+  console.log(mensaje);
+
+  console.log("***********  DESDE EL /editar/:id'" + req.session.nombreUsuario);
+
+  res.render('editar.ejs', {pais: pais, mensaje: mensaje})
+});*/
+
+module.exports = router;
